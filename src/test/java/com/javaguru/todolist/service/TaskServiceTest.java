@@ -3,11 +3,11 @@ package com.javaguru.todolist.service;
 import com.javaguru.todolist.domain.Task;
 import com.javaguru.todolist.repository.TaskInMemoryRepository;
 import com.javaguru.todolist.service.validation.TaskValidationService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -29,11 +29,15 @@ public class TaskServiceTest {
     @Mock
     private TaskValidationService validationService;
 
-    @InjectMocks
-    private TaskService victim;
-
     @Captor
     private ArgumentCaptor<Task> taskCaptor;
+
+    private TaskService victim;
+
+    @Before
+    public void setUp() {
+        victim = new TaskService(repository, validationService);
+    }
 
     @Test
     public void shouldCreateTask() {
@@ -51,7 +55,7 @@ public class TaskServiceTest {
 
     @Test
     public void shouldFindTaskById() {
-        when(repository.findTaskById(1001L)).thenReturn(Optional.ofNullable(task()));
+        when(repository.findTaskById(1001L)).thenReturn(Optional.of(task()));
 
         Task result = victim.findTaskById(1001L);
 
