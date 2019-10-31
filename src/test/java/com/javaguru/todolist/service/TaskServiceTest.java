@@ -11,7 +11,6 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,7 +48,7 @@ public class TaskServiceTest {
         verify(validationService).validate(taskCaptor.capture());
         Task captorResult = taskCaptor.getValue();
 
-        assertThat(captorResult).isEqualTo(task);
+        assertThat(captorResult).isEqualTo(task());
         assertThat(task.getId()).isEqualTo(result);
     }
 
@@ -67,7 +66,7 @@ public class TaskServiceTest {
         when(repository.findTaskById(any())).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> victim.findTaskById(1001L))
-                .isInstanceOf(NoSuchElementException.class)
+                .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Task not found, id: 1001");
     }
 
