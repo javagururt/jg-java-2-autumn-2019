@@ -54,7 +54,7 @@ public class TaskServiceTest {
 
     @Test
     public void shouldFindTaskById() {
-        when(repository.findTaskById(1001L)).thenReturn(Optional.of(task()));
+        when(repository.findTaskById(1001L)).thenReturn(Optional.ofNullable(task()));
 
         Task result = victim.findTaskById(1001L);
 
