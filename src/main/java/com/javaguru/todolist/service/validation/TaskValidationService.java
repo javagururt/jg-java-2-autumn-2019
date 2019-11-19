@@ -1,6 +1,7 @@
 package com.javaguru.todolist.service.validation;
 
 import com.javaguru.todolist.domain.Task;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
